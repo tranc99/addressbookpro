@@ -93,9 +93,28 @@ void AddressBook::submitContact()
         return;
     }
 
+    if (contacts.isEmpty()) {
+        nameLine->clear();
+        addressText->clear();
+    }
+
+    nameLine->setReadOnly(true);
+    addressText->setReadOnly(true);
+    addButton->setEnabled(true);
+    submitButton->hide();
+    cancelButton->hide();
+
 }
 
 void AddressBook::cancel()
 {
+    nameLine->setText(oldName);
+    nameLine->setReadOnly(true);
 
+    addressText->setText(oldAddress);
+    addressText->setReadOnly(true);
+
+    addButton->setEnabled(true);
+    submitButton->hide();
+    cancelButton->hide();
 }
