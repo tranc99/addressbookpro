@@ -1,5 +1,6 @@
 #include "addressbook.h"
 #include<QtGui>
+#include<QString>
 
 AddressBook::AddressBook(QWidget *parent) : QWidget(parent)
 {
@@ -71,6 +72,26 @@ void AddressBook::addContact()
 
 void AddressBook::submitContact()
 {
+    QString name = nameLine->text();
+    QString address = addressText->toPlainText();
+
+    if(name.isEmpty() || address.isEmpty())
+    {
+        QMessageBox::information(this, tr("Empty Field"),
+                                 tr("Please enter a name and address."));
+        return;
+    }
+
+    //check if the contact already exists i.e. this contact is a duplicate
+    if(!contacts.contains(name))
+    {
+        contacts.insert(name, address);
+        QMessageBox::information(this, tr("Contact added successfully"), tr("\"%1\" has been added to your contacts").arg(name));
+    } else {
+        QMessageBox::information(this, tr("Unsuccessful"),
+                                 tr("\"%1\" is already in your contacts.").arg(name));
+        return;
+    }
 
 }
 
